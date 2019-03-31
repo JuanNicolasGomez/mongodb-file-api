@@ -1,9 +1,6 @@
 package eci.cosw;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,15 +23,7 @@ public class AppConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
 
-        // Set credentials
-        MongoCredential credential = MongoCredential.createCredential("<username>", "<database-name>", "<password>".toCharArray());
-        ServerAddress serverAddress = new ServerAddress("ds149672.mlab.com", 49672);
-
-        // Mongo Client
-        MongoClient mongoClient = new MongoClient(serverAddress, credential, new MongoClientOptions.Builder().build());
-
-
-        return new SimpleMongoDbFactory(mongoClient, "<database-name>");
+        return new SimpleMongoDbFactory(new MongoClientURI("mongodb+srv://nicolas-gomez:203898jngm@taskplannercluster-3ee8z.mongodb.net/TaskPlannerDB?retryWrites=true"));
     }
 
     @Bean
